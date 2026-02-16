@@ -1,0 +1,6 @@
+*.exe
+*.dll
+
+backend.db
+
+.vscode/
