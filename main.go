@@ -14,8 +14,8 @@ func main() {
 	http.HandleFunc("/signup", handlers.SignupHandler)
 	http.HandleFunc("/login", handlers.LoginHandler)
 
-	http.HandleFunc("POST /notes", middleware.AuthMiddleware(handlers.CreateNoteHandler))
-	http.HandleFunc("GET /notes", middleware.AuthMiddleware(handlers.GetNotesHandler))
+	http.HandleFunc("POST /notes", middleware.RateLimitMiddleware(middleware.AuthMiddleware(handlers.CreateNoteHandler)))
+	http.HandleFunc("GET /notes", middleware.RateLimitMiddleware(middleware.AuthMiddleware(handlers.GetNotesHandler)))
 
 	log.Println("Server is running on port 8080..")
 	err := http.ListenAndServe(":8080", nil)
